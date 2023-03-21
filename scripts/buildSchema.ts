@@ -4,4 +4,4 @@ import { schema } from "../src/pages/api/graphql";
 
 const schemaAsString = printSchema(lexicographicSortSchema(schema));
 
-writeFileSync("generated/schema.graphql", schemaAsString);
+writeFileSync("src/generated/schema.graphql", schemaAsString);

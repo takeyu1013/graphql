@@ -1,23 +1,19 @@
 import { hydrateRelayEnvironment } from "relay-nextjs";
-import { withHydrateDatetime } from "relay-nextjs/date";
 import { Environment, Network, Store, RecordSource } from "relay-runtime";
 
 export function createClientNetwork() {
-  return Network.create(async (params, variables) => {
-    const response = await fetch("/api/graphql", {
+  return Network.create(async ({ text: query }, variables) => {
+    const response = await fetch("http://localhost:3000/api/graphql", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query: params.text,
+        query,
         variables,
       }),
     });
-
-    const json = await response.text();
-    return JSON.parse(json, withHydrateDatetime);
+    return await response.json();
   });
 }
 

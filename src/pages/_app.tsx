@@ -13,11 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const env = relayProps.preloadedQuery?.environment ?? clientEnv!;
 
   return (
-    <>
-      <RelayEnvironmentProvider environment={env}>
-        <Component {...pageProps} {...relayProps} />
-      </RelayEnvironmentProvider>
-    </>
+    <RelayEnvironmentProvider environment={env}>
+      <Component {...pageProps} {...relayProps} />
+    </RelayEnvironmentProvider>
   );
 }
 
