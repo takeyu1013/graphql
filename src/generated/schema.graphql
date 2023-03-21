@@ -1,0 +1,53 @@
+type Mutation {
+  UserCreate(input: UserCreateInput!): UserCreatePayload!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Post implements Node {
+  content: String!
+  id: ID!
+  title: String!
+}
+
+type PostConnection {
+  edges: [PostEdge]!
+  pageInfo: PageInfo!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post!
+}
+
+type Query {
+  node(id: ID!): Node
+  users: [User!]!
+}
+
+type User implements Node {
+  email: String!
+  id: ID!
+  name: String!
+  posts(after: ID, before: ID, first: Int, last: Int): PostConnection!
+}
+
+input UserCreateInput {
+  clientMutationId: ID
+  email: String!
+  name: String!
+}
+
+type UserCreatePayload {
+  clientMutationId: ID
+  user: User!
+}
